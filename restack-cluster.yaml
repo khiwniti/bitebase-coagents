@@ -1,0 +1,75 @@
+# Production-Grade Agent Cluster Configuration
+apiVersion: restack.ai/v1beta1
+kind: AgentCluster
+metadata:
+  name: bitebase-production
+  labels:
+    env: production
+    domain: restaurant-ai
+
+spec:
+  infrastructure:
+    region: us-east-1
+    nodeGroups:
+      - name: gpu-workers
+        instanceType: g4dn.xlarge
+        minSize: 2
+        maxSize: 8
+        gpu: true
+      - name: cpu-workers  
+        instanceType: m5.large
+        minSize: 3
+        maxSize: 12
+
+  workflowEngine:
+    version: 2.3.1
+    autoscaling:
+      minReplicas: 3
+      maxReplicas: 10
+      targetCPUUtilization: 60
+
+  agents:
+    - name: product-analysis
+      image: registry.bitebase.ai/agents/product:v1.2.3
+      resources:
+        requests:
+          cpu: "1"
+          memory: "4Gi"
+        limits:
+          cpu: "2" 
+          memory: "8Gi"
+      env:
+        - name: OLLAMA_ENDPOINT
+          value: "ollama.bitebase.app"
+
+    - name: price-optimization
+      image: registry.bitebase.ai/agents/price:v1.1.7
+      gpu: true
+      resources:
+        requests:
+          nvidia.com/gpu: 1
+          memory: "8Gi"
+
+  security:
+    tls:
+      enabled: true
+      certificateARN: arn:aws:acm:us-east-1:123456789012:certificate/abcd1234
+    networkPolicies:
+      - name: agent-communication
+        protocol: TCP
+        portRange: 5000-6000
+
+  monitoring:
+    prometheus: true
+    grafana:
+      enabled: true
+    alerts:
+      - name: high-cpu
+        threshold: "80%"
+
+  autoscaling:
+    - metric: workflow_queue_depth
+      threshold: 100
+      scaleUp:
+        increment: 2
+        coolDown: 300

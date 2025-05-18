@@ -1,0 +1,92 @@
+{
+    "servers": {
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ],
+        },
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp@latest"
+            ],
+        },
+        "Figma AI Bridge": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "figma-developer-mcp",
+                "--stdio"
+            ],
+            "env": {
+                "FIGMA_API_KEY": "figd_MlsgAgZECAuZP6wfp34NwCUb1QQO67yUYwgoOjbX"
+            },
+        },
+        "GitHub": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+            },
+        },
+        "firecrawl-mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "firecrawl-mcp"
+            ],
+            "env": {
+                "FIRECRAWL_API_KEY": "YOUR-API-KEY"
+            },
+        },
+        "slack": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-slack"
+            ],
+            "env": {
+                "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
+                "SLACK_TEAM_ID": "T01234567",
+                "SLACK_CHANNEL_IDS": "C01234567, C76543210"
+            },
+        },
+        "kubernetes": {
+            "command": "npx",
+            "args": [
+                "mcp-server-kubernetes"
+            ],
+        },
+        "mcp-hfspace": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@llmindset/mcp-hfspace"
+            ],
+        },
+        "Puppeteer": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-puppeteer"
+            ],
+            "env": {},
+        },
+        "google-maps": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-google-maps"
+            ],
+            "env": {
+                "GOOGLE_MAPS_API_KEY": "AIzaSyBy3b3aYUEE9gh23Fpheashdp9bXwQERg8AIzaSyBy3b3aYUEE9gh23Fpheashdp9bXwQERg8"
+            },
+        }
+    }
+}
