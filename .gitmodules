@@ -1,0 +1,3 @@
+[submodule "coagents-market-research"]
+	path = coagents-market-research
+	url = https://github.com/khiwniti/bitebase-coagents.git
